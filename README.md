@@ -2,11 +2,10 @@
 
 ##  Technologies Used
 
-- Java 17+
+- Java 17
 - Spring Boot
 - Spring Data JPA
-- H2 (or MySQL/PostgreSQL as needed)
-- Hibernate
+- MySQL
 - Lombok
 - Maven
 

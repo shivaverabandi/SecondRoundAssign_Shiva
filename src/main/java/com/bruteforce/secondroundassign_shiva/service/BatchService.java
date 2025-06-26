@@ -1,0 +1,7 @@
+package com.bruteforce.secondroundassign_shiva.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class BatchService implements IBatchService{
+}

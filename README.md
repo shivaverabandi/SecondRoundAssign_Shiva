@@ -1,10 +1,6 @@
-# Second Round Java Intern Assignment - Shiva Verabandi
 
-This project is a Spring Boot application developed for a Java backend intern assignment. It demonstrates how to design and implement a relational data model with `Product`, `GTIN`, and `Batch` entities using Spring Data JPA and exposes RESTful APIs to populate and retrieve data.
 
----
-
-## 🧱 Technologies Used
+##  Technologies Used
 
 - Java 17+
 - Spring Boot
@@ -16,7 +12,7 @@ This project is a Spring Boot application developed for a Java backend intern as
 
 ---
 
-## 📦 Database Model
+##  Database Model
 
 ### Entity Relationships
 
@@ -44,7 +40,7 @@ This project is a Spring Boot application developed for a Java backend intern as
 
 ---
 
-## ✅ Features Implemented
+##  Features Implemented
 
 ### 1. **Data Insertion via POST APIs**
 - `POST /products`: Create a new Product
@@ -65,12 +61,3 @@ This project is a Spring Boot application developed for a Java backend intern as
   - **Only the most recent** batch where `availableQuantity <= 0`
 
 ---
-
-## 🧪 Sample JSON Payloads
-
-### Create Product
-```json
-{
-  "productName": "Paracetamol",
-  "createdOn": "2025-06-26"
-}

@@ -17,9 +17,10 @@ public class Gtin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "gtin_id")
+    private Integer gtinId;
 
-    @Column(name = "gtin", nullable = false)
+    @Column(name = "gtin", nullable = false, unique = true)
     private String gtin;
 
     @ManyToOne

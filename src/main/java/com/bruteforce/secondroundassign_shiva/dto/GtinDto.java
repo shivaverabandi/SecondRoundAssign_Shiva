@@ -12,8 +12,6 @@ import java.util.List;
 public class GtinDto {
     private Integer gtinId;
     private String gtin;
-    private Long productId;
-    private List<Integer> batchIds;
-
-
+    private ProductDto product;
+    List<BatchDto> batchesDto;
 }

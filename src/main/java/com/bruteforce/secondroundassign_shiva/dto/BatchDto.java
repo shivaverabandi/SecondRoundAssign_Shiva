@@ -13,6 +13,7 @@ public class BatchDto {
     private Integer batchId;
     private Integer mrp;
     private Integer sp;
+    private String batchName;
     private Integer purchasePrice;
     private Integer availableQuantity;
     private Date inwardedOn;

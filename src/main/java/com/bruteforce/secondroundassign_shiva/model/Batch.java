@@ -22,6 +22,9 @@ public class Batch {
     @Column(name = "mrp", nullable = false)
     private Integer mrp;
 
+    @Column(name = "batch_name", nullable = false, unique = true)
+    private String batchName;
+
     @Column(name = "sp", nullable = false)
     private Integer sp;
 

@@ -17,7 +17,7 @@ public class Batch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "batch_id")
-    private Integer batchId;
+    private Long batchId;
 
     @Column(name = "mrp", nullable = false)
     private Integer mrp;
@@ -34,9 +34,9 @@ public class Batch {
     @Column(name = "available_quantity", nullable = false)
     private Integer availableQuantity;
 
-    @Column(name = "inwarded_on", nullable = false)
+    @Column(name = "in_warded_on", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date inwardedOn;
+    private Date inWardedOn;
 
     @ManyToOne
     @JoinColumn(name = "gtin_id", nullable = false)

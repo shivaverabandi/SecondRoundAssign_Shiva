@@ -4,14 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class GtinDto {
-    private Integer gtinId;
-    private String gtin;
+@NoArgsConstructor
+public class ResponseGtinDto1 {
+    private Long gtinId;
+    private String gtinName;
     private ProductDto product;
-    List<BatchDto> batchesDto;
 }

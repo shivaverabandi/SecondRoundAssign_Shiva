@@ -1,17 +1,20 @@
 package com.bruteforce.secondroundassign_shiva.service;
 
 import com.bruteforce.secondroundassign_shiva.Exceptions.GtinAleardyExists;
-import com.bruteforce.secondroundassign_shiva.Exceptions.GtinNotExists;
 import com.bruteforce.secondroundassign_shiva.Exceptions.ProductNotExists;
-import com.bruteforce.secondroundassign_shiva.dto.GtinDto;
+import com.bruteforce.secondroundassign_shiva.dto.RequestGtinDto1;
+import com.bruteforce.secondroundassign_shiva.dto.ResponseGtinDto1;
+import com.bruteforce.secondroundassign_shiva.dto.ResponseGtinDto2;
 import com.bruteforce.secondroundassign_shiva.model.Gtin;
 import com.bruteforce.secondroundassign_shiva.model.Product;
 import com.bruteforce.secondroundassign_shiva.repo.IGtinRepo;
 import com.bruteforce.secondroundassign_shiva.repo.IProductRepo;
-import com.bruteforce.secondroundassign_shiva.utils.DtoEntityMapperUtil;
+import com.bruteforce.secondroundassign_shiva.utils.GtinDto1Converter;
+import com.bruteforce.secondroundassign_shiva.utils.GtinDto2Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,45 +32,50 @@ public class GtinService implements IGtinService {
 
 
     @Override
-    public GtinDto createGtin(GtinDto reqDto){
+    public ResponseGtinDto1 createGtin(RequestGtinDto1 reqDto){
 
-        Optional<Product> product =prodRepo.findById(reqDto.getProduct().getProductId());
-        if(product.isEmpty()){
-            throw new ProductNotExists("Product is not exists in Database..!");
-        }
+        Product product =prodRepo.findById(reqDto.getProductId())
+                .orElseThrow(() -> new ProductNotExists("Product not found with "+ reqDto.getProductId()));
 
-        Optional<Gtin> gtin = repo.findByGtin((reqDto.getGtin()));
+        Optional<Gtin> gtin = repo.findByGtinName((reqDto.getGtinName()));
         if(gtin.isEmpty()){
-            Gtin newGtin = DtoEntityMapperUtil.toEntity(reqDto, product.get());
+            Gtin newGtin = GtinDto1Converter.convertToEntity(reqDto,product);
             newGtin = repo.save(newGtin);
-            return DtoEntityMapperUtil.toDto(newGtin);
+            return GtinDto1Converter.convertToDto(newGtin);
         }
 
-        throw new GtinAleardyExists("Gtin With name "+reqDto.getGtin()+" already exits..!");
+        throw new GtinAleardyExists("Gtin With name "+reqDto.getGtinName() +" already exits..!");
     }
 
     @Override
-    public GtinDto getGtinBy(String gtin) {
-        Optional<Gtin> response  = repo.findByGtin(gtin);
-        if(response.isPresent()) {
-            GtinDto resDto = DtoEntityMapperUtil.toDto(response.get());
-            return resDto;
+    public List<ResponseGtinDto1> createGtins(List<RequestGtinDto1> list) {
+        List<Long> prods = new ArrayList<>();
+        for(RequestGtinDto1 req : list){
+            prods.add(req.getProductId());
         }
-        throw new GtinNotExists("Gtin with name "+ gtin + "Not Exists..!");
+        for(RequestGtinDto1 req : list){
+            if(!repo.findByGtinName(req.getGtinName()).isEmpty()){
+                throw new GtinAleardyExists("Gtin With name "+req.getGtinName() +" already exits..!");
+            }
+        }
+        List<Gtin> saveEntityList = new ArrayList<>();
+        if(prods.size() == list.size()){
+            for(RequestGtinDto1 reqDto : list){
+                Gtin newGtin = GtinDto1Converter.convertToEntity(reqDto,prodRepo.findById(reqDto.getProductId()).get());
+                saveEntityList.add(newGtin);
+            }
+        }
+        saveEntityList = repo.saveAll(saveEntityList);
+        return saveEntityList.stream().map(gtin -> GtinDto1Converter.convertToDto(gtin)).toList();
+
     }
 
     @Override
-    public List<GtinDto> getAll(){
-        List<Gtin> list = repo.findAll();
-        List<GtinDto> gtinDto =  list.stream().map(gtin -> DtoEntityMapperUtil.toDto(gtin))
-                .toList();
-        return gtinDto;
+    public List<ResponseGtinDto2> getAllGtins() {
+        List<Gtin> gtins = repo.findAll();
+        List<ResponseGtinDto2> response = gtins.stream()
+                .map(gtin -> GtinDto2Converter.convertToDto2(gtin)).toList();
+        return response;
     }
-
-    @Override
-    public List<String> gtinsWhoseBatchQauntIsPos() {
-        return repo.findAllGtinsWithPositiveBatchQuantity();
-    }
-
 
 }

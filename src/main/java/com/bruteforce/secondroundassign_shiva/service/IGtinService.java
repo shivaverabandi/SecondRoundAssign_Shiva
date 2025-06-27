@@ -1,16 +1,17 @@
 package com.bruteforce.secondroundassign_shiva.service;
 
-import com.bruteforce.secondroundassign_shiva.dto.GtinDto;
+import com.bruteforce.secondroundassign_shiva.dto.RequestGtinDto1;
+import com.bruteforce.secondroundassign_shiva.dto.ResponseGtinDto1;
+import com.bruteforce.secondroundassign_shiva.dto.ResponseGtinDto2;
 
 import java.util.List;
 
 public interface IGtinService {
 
-    GtinDto createGtin(GtinDto reqDto);
+    ResponseGtinDto1 createGtin(RequestGtinDto1 reqDto);
 
-    GtinDto getGtinBy(String gtin);
+    List<ResponseGtinDto1> createGtins(List<RequestGtinDto1> list);
 
-    List<GtinDto> getAll();
-
-    List<String> gtinsWhoseBatchQauntIsPos();
+    List<ResponseGtinDto2> getAllGtins();
+//    List<String> gtinsWhoseBatchQauntIsPos();
 }

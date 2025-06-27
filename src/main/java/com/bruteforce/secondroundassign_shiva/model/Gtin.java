@@ -1,11 +1,11 @@
 package com.bruteforce.secondroundassign_shiva.model;
 
 import jakarta.persistence.*;
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 
 @Entity
@@ -18,10 +18,10 @@ public class Gtin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "gtin_id")
-    private Integer gtinId;
+    private Long gtinId;
 
-    @Column(name = "gtin", nullable = false, unique = true)
-    private String gtin;
+    @Column(name = "gtin_name", nullable = false, unique = true)
+    private String gtinName;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)

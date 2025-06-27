@@ -9,14 +9,14 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BatchDto {
-    private Integer batchId;
+public class RequestBatchDto {
+
     private Integer mrp;
-    private Integer sp;
     private String batchName;
+    private Integer sp;
     private Integer purchasePrice;
     private Integer availableQuantity;
-    private Date inwardedOn;
-    private Integer gtinId;
+    private Date inWardedOn;
+    private Long gtinId;
 
 }

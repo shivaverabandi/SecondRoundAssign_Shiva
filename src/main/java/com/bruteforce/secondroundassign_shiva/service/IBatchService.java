@@ -6,6 +6,5 @@ import com.bruteforce.secondroundassign_shiva.dto.ResponseBatchDto;
 public interface IBatchService {
 
     ResponseBatchDto createBatch(RequestBatchDto reqDto);
-
- //   BatchDto findNonPosBatchByGtin();
+    ResponseBatchDto getNonPositiveBatchBasedOnLatestInWardedFilter();
 }

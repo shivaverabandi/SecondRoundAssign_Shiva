@@ -1,6 +1,7 @@
 package com.bruteforce.secondroundassign_shiva.service;
 
 import com.bruteforce.secondroundassign_shiva.Exceptions.BatchAlreadyExists;
+import com.bruteforce.secondroundassign_shiva.Exceptions.BatchNotFoundException;
 import com.bruteforce.secondroundassign_shiva.Exceptions.GtinNotExists;
 import com.bruteforce.secondroundassign_shiva.dto.RequestBatchDto;
 import com.bruteforce.secondroundassign_shiva.dto.ResponseBatchDto;
@@ -39,15 +40,12 @@ public class BatchService implements IBatchService{
         }
         throw new BatchAlreadyExists("Batch already exists with name : "+ reqDto.getBatchName());
     }
-//
-//    @Override
-//    public BatchDto findNonPosBatchByGtin(){
-//        Optional<Batch> opBatch =  batchRepo.findNonPosBatchByGtin();
-//        if(opBatch.isEmpty()){
-//            throw new BatchNotFoundException("Batch Not found Exception..!");
-//        }
-//
-//        BatchDto response = DtoEntityMapperUtil.toDto(opBatch.get());
-//        return response;
-//    }
+
+    @Override
+    public ResponseBatchDto getNonPositiveBatchBasedOnLatestInWardedFilter() {
+        Batch response = batchRepo.findNonPositiveBatchBasedOnLatestInWardedFilter()
+                .orElseThrow(() -> new BatchNotFoundException("Batch Based on this scenario not exists or not found..!"));
+        return BatchDtoConverter.convertToDto(response);
+    }
+
 }

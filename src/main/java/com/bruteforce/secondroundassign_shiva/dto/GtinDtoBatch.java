@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GtinDtoBatch {
 
+    // used this Dto in ResponseBatchDto to return gtinName after saving Batch in Database
     private Long gtinId;
     private String gtinName;
 }

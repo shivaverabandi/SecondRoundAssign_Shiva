@@ -13,5 +13,5 @@ public interface IGtinService {
     List<ResponseGtinDto1> createGtins(List<RequestGtinDto1> list);
 
     List<ResponseGtinDto2> getAllGtins();
-//    List<String> gtinsWhoseBatchQauntIsPos();
+    List<String> findAllGtinsContainingBatchAvailableQuantityPositive();
 }

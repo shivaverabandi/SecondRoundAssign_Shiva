@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    // Product  Exceptions ===========================================================
     @ExceptionHandler(ProductAlreadyExists.class)
     public ResponseEntity<Error> productAlreadyExists(ProductAlreadyExists e){
         Error error = new Error(LocalDateTime.now() ,e.getMessage());
@@ -22,6 +23,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
     }
 
+    // Gtin Exceptions ==================================================================
     @ExceptionHandler(GtinAleardyExists.class)
     public ResponseEntity<Error> gtinAlreadyExists(GtinAleardyExists e){
         Error error = new Error(LocalDateTime.now(),e.getMessage());
@@ -33,6 +35,7 @@ public class GlobalExceptionHandler {
         Error error = new Error(LocalDateTime.now(),e.getMessage());
         return new ResponseEntity<>(error,HttpStatus.CONFLICT);
     }
+    // Batch Exceptions =============================================================
     @ExceptionHandler(BatchAlreadyExists.class)
     public ResponseEntity<Error> batchAlreadyExists(BatchAlreadyExists e){
         Error error = new Error(LocalDateTime.now(),e.getMessage());
@@ -44,8 +47,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
+    // Generic Exception ===================================================
     @ExceptionHandler(Exception.class)
-
     public ResponseEntity<Error> generalException(Exception e){
         Error error = new Error(LocalDateTime.now(), e.getMessage());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
